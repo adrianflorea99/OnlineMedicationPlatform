@@ -32,7 +32,7 @@ public class SensorSimulator {
         //factory.setPassword("admin"); // Docker Desktop
         factory.setUsername("guest"); // RabbitMQ Server local
         factory.setPassword("guest"); // RabbitMQ Server local
-        //factory.setUsername("vmefamvz"); // CloudAM QP
+        //factory.setUsername("vmefamvz"); // CloudAMQP
         //factory.setPassword("YQfoT4dbmHJZW0RKPLLdCvSXPnCUJlQn"); // CloudAMQP
         try (Connection connection = factory.newConnection()) {
             Channel channel = connection.createChannel();

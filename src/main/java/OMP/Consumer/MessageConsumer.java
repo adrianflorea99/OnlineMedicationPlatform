@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeoutException;
 
 @Component
@@ -35,10 +38,13 @@ public class MessageConsumer {
 
     public void readMessagesFromQueue() throws IOException {
         ConnectionFactory factory = new ConnectionFactory();
-        //factory.setUsername("admin");
-        //factory.setPassword("admin");
-        factory.setUsername("guest");
-        factory.setPassword("guest");
+        //factory.setUsername("admin"); // Docker Desktop
+        //factory.setPassword("admin"); // Docker Desktop
+        factory.setUsername("guest"); // RabbitMQ Server local
+        factory.setPassword("guest"); // RabbitMQ Server local
+        //factory.setUsername("vmefamvz"); // CloudAMQP
+        //factory.setPassword("YQfoT4dbmHJZW0RKPLLdCvSXPnCUJlQn"); // CloudAMQP
+
         Connection connection = null;
         try {
             connection = factory.newConnection();
@@ -80,7 +86,7 @@ public class MessageConsumer {
                     if (leavingLongerThan5Hours(sensorActivity, difference)) {
                         messageDispatcher.sendToClient("Anomaly found: R2", "Elena.Balog@gmail.com");
                     }
-                    else {
+                    else if (bathroomLongerThan5Hours(sensorActivity, difference)) {
                         messageDispatcher.sendToClient("Anomaly found: R3", "Elena.Balog@gmail.com");
                     }
                 }
