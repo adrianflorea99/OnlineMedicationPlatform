@@ -34,7 +34,7 @@ build:
     - docker push $CI_REGISTRY_IMAGE:latest
 
 variables:
-    APP_NAME: OMP2-backend
+    APP_NAME: omp-2020
     
 deploy:
   image: docker:latest
